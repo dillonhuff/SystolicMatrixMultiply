@@ -1,4 +1,4 @@
-module fifo_3(input clk,
+module fifo_1(input clk,
               input         rst,
 
               input         in_data_valid,
