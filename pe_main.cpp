@@ -1,8 +1,8 @@
 #include "Vpe.h"
 #include "verilated.h"
 
-#define POSEDGE(top, signal) (top)->signal = 0; (top)->signal = 1; (top)->eval();
-#define NEGEDGE(top, signal) (top)->signal = 1; (top)->signal = 0; (top)->eval();
+#define POSEDGE(top, signal) (top)->signal = 0; (top)->eval(); (top)->signal = 1; (top)->eval();
+#define NEGEDGE(top, signal) (top)->signal = 1; (top)->eval(); (top)->signal = 0; (top)->eval();
 
 #include <iostream>
 
@@ -40,6 +40,13 @@ void test_accumulate() {
   cout << "c = " << top->dbg_c << endl;
 
   assert(top->dbg_c == 30);
+
+  top->a = 3;
+  top->b = 5;
+
+  POSEDGE(top, clk);
+  
+  assert(top->dbg_c == (30 + 15));
   
   delete top;
 }

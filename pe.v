@@ -11,8 +11,8 @@ module pe(input clk,
    reg [31:0]   c;
    
    always @(posedge clk or negedge rst) begin
-      // $display("a = ", a);
-      // $display("b = ", b);      
+      $display("a = ", a);
+      $display("b = ", b);      
 
       if (!rst) begin
          c <= 0;
