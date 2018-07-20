@@ -8,6 +8,47 @@
 
 using namespace std;
 
+void test_reset() {
+  Vfifo_3* top = new Vfifo_3();
+
+  POSEDGE(top, rst);
+  NEGEDGE(top, rst);
+  POSEDGE(top, rst);
+
+  assert(top->data_valid == 0);
+  
+  delete top;
+}
+
+void test_valid_out() {
+  Vfifo_3* top = new Vfifo_3();
+
+  POSEDGE(top, rst);
+  NEGEDGE(top, rst);
+  POSEDGE(top, rst);
+
+  assert(top->data_valid == 0);
+
+  top->in_data_valid = 1;
+  top->in_data = 23;
+
+  POSEDGE(top, clk);
+
+  assert(top->data_valid == 0);
+  assert(top->data_out == 0);
+
+  POSEDGE(top, clk);
+
+  assert(top->data_valid == 0);
+  assert(top->data_out == 0);  
+
+  POSEDGE(top, clk);
+
+  assert(top->data_valid == 1);
+  assert(top->data_out == 23);
+}
+
 int main() {
-  assert(false);
+  test_reset();
+  test_valid_out();
 }
