@@ -34,18 +34,39 @@ void test_valid_out() {
 
   POSEDGE(top, clk);
 
+  top->in_data = 5;
+
   assert(top->data_valid == 0);
   assert(top->data_out == 0);
 
   POSEDGE(top, clk);
 
+  top->in_data = 78;
+  
   assert(top->data_valid == 0);
   assert(top->data_out == 0);  
 
   POSEDGE(top, clk);
 
+  top->in_data_valid = 0;
+
   assert(top->data_valid == 1);
   assert(top->data_out == 23);
+
+  POSEDGE(top, clk);
+
+  assert(top->data_valid == 1);
+  assert(top->data_out == 5);
+
+  POSEDGE(top, clk);
+
+  assert(top->data_valid == 1);
+  assert(top->data_out == 78);
+
+  POSEDGE(top, clk);
+
+  assert(top->data_valid == 0);
+  
 }
 
 int main() {
