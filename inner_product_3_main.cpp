@@ -41,6 +41,7 @@ void test_normal_run() {
 
   for (int i = 0; i < 3; i++) {
     POSEDGE(top, clk);
+    cout << "output = " << top->c << endl;
   }
 
   assert(top->c == (0 + 1*3 + 2*4));
